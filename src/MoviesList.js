@@ -69,7 +69,8 @@ export default class MoviesList extends React.Component {
 
     render() {
         return(
-            <div className="moviesList">
+            <div id="moviesListContainer">
+                <ul className="moviesList">
                 {this.state.movies.map(movie =>
                     <MovieItem
                         key={movie.id}
@@ -79,6 +80,7 @@ export default class MoviesList extends React.Component {
                         summary={movie.summary}
                         seen={movie.seen}
                     /> )}
+                </ul>
             </div>
         );
     }

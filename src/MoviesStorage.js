@@ -77,10 +77,28 @@ export default class MoviesStorage {
             return this.moviesData[movieIndex];
         }
     }
+    set() {
+        if(arguments.length === 1 && typeof arguments === "object") {
+            // add new movie
+            let data = arguments[0];
+            // add new movie to moviesData array
+            this.moviesData.push(data);
+        }
+        else if (arguments.length === 2 && typeof arguments[0] === "number" && typeof arguments[1] === "object") {
+            let id = arguments[0];
+            let data = arguments[1];
+
+            // update existing movie
+            let movieIndex = this.findIndexOfMovie(id);
+            this.moviesData[movieIndex] = data;
+        }
+        this.updateStoragedMovies(this.moviesData);
+    }
+
+
+
     updateStoragedMovies() {
         localStorage.setItem("movie", JSON.stringify(this.moviesData));
-        //console.log(JSON.parse(localStorage.getItem("movie")));
-
     }
     findIndexOfMovie(id) {
         let movieIndex = this.moviesData.findIndex(function(movie) {

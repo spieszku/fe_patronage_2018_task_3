@@ -23,11 +23,8 @@ class App extends Component {
         movieItem.id = lastMovieId + 1;
 
         movies.push(movieItem);
-        console.log(movies);
-
         this.setState({movies: movies});
-
-        //moviesStorage.updateStoragedMovies();
+        moviesStorage.set(movieItem);
     }
 
   render() {

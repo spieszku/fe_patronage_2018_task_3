@@ -9,7 +9,9 @@ export default class MoviesList extends React.Component {
                 <ul className="moviesList">
                 {this.props.movies.map(movie =>
                     <MovieItem
+                        handleStatus={this.props.changeMovieStatus}
                         key={movie.id}
+                        id={movie.id}
                         title={movie.title}
                         year={movie.year}
                         genre={movie.genre}

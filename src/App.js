@@ -41,6 +41,11 @@ class App extends Component {
         this.setState({movies: movies});
     }
 
+    movieExist (title) {
+        let movieTitleExist = moviesStorage.get().find(x => x.title === title);
+        return movieTitleExist;
+    }
+
   render() {
     const movies = this.state.movies;
       const countAll = this.state.movies.length;
@@ -50,7 +55,7 @@ class App extends Component {
     return (
         <div className="container">
             <Counter countAll={countAll} countSeen={countSeen} />
-            <MovieForm formSubmit={this.addNewMovie} />
+            <MovieForm formSubmit={this.addNewMovie} titleHandler={this.movieExist.bind(this)} />
             <MovieList movies={movies} changeMovieStatus={this.changeMovieStatus.bind(this)} />
         </div>
     );

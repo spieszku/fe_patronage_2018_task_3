@@ -94,9 +94,11 @@ export default class MoviesStorage {
         }
         this.updateStoragedMovies(this.moviesData);
     }
-
-
-
+    remove(id) {
+        let movieIndex = this.findIndexOfMovie(id);
+        this.moviesData.splice(movieIndex, 1);
+        this.updateStoragedMovies(this.moviesData);
+    }
     updateStoragedMovies() {
         localStorage.setItem("movie", JSON.stringify(this.moviesData));
     }

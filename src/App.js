@@ -28,9 +28,6 @@ class App extends Component {
         moviesStorage.set(movieItem);
     }
 
-    setCounter () {
-        moviesStorage.length();
-    }
     changeMovieStatus(id) {
         const movies = this.state.movies.slice();
         let changedMovie = moviesStorage.get(id);
@@ -47,9 +44,12 @@ class App extends Component {
   render() {
     const movies = this.state.movies;
       const countAll = this.state.movies.length;
+      let countSeen = movies.filter(function (movie) {
+          return movie.seen === "T"
+      }).length;
     return (
         <div className="container">
-            <Counter countAll={countAll} />
+            <Counter countAll={countAll} countSeen={countSeen} />
             <MovieForm formSubmit={this.addNewMovie} />
             <MovieList movies={movies} changeMovieStatus={this.changeMovieStatus.bind(this)} />
         </div>

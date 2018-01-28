@@ -5,7 +5,7 @@ export default class Counter extends React.Component {
         return (
             <div>
                 <div>All: {this.props.countAll}</div>
-                <div>Viewed: {this.props.countAll}</div>
+                <div>Viewed: {this.props.countSeen}</div>
             </div>
         )
     }

@@ -27,14 +27,15 @@ export default class MovieForm extends React.Component {
     handleChange = event =>  {
         const target = event.target;
         const name = target.name;
+        //const timedVlaue;
         if(name === 'title') {
-            this.validateTitle(target.value);
+            this.validateTitle(target.value.trim());
         }
         else if (name === 'year') {
             this.validateDate(target.value);
         }
         else if (name === 'genre') {
-            this.validateGenre(target.value);
+            this.validateGenre(target.value.trim());
         }
 
         //update state

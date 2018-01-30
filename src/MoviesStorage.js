@@ -82,7 +82,6 @@ export default class MoviesStorage {
         if(typeof data === "object") {
             // add new movie to moviesData array
             this.moviesData.push(data);
-            console.log("Dodaję nowy")
         }
         else if (typeof data === "object" && typeof id === "number" ) {
             // update existing movie

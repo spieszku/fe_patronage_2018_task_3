@@ -14,9 +14,8 @@ export default class MovieForm extends React.Component {
             },
             validate: {
                 genre: { valid: false, msg: ''},
+                title: { valid: false, msg: ''},
                 year: { valid: false, msg: ''},
-                genreValidate: false,
-                titleValidate: false,
                 formValidate: false
             }
         };
@@ -56,16 +55,22 @@ export default class MovieForm extends React.Component {
     }
     validateTitle (value) {
         var valid;
+        var msg;
         if(value) {
             if(this.props.titleHandler(value) === undefined) {
                 valid = true;
+                msg = '';
+            }
+            else {
+                msg = "Movie with this title already exist!"
             }
         }
         else {
             valid = false;
+            msg = 'Title is required';
         }
         this.setState(prevState => ({validate: {
-            ...prevState.validate, titleValidate: valid
+            ...prevState.validate, title: { valid: valid, msg: msg}
         }}));
     }
     validateDate (value) {
@@ -102,7 +107,7 @@ export default class MovieForm extends React.Component {
         }}));
     }
     validateForm () {
-        if(this.state.validate.year.valid && this.state.validate.titleValidate && this.state.validate.genre.valid) {
+        if(this.state.validate.year.valid && this.state.validate.title.valid && this.state.validate.genre.valid) {
             this.setState(prevState => ({validate: {
                 ...prevState.validate,formValidate: true
             }}));
@@ -120,7 +125,8 @@ export default class MovieForm extends React.Component {
                 <form id="addMovieForm">
                     <p className="form-item">
                         <label htmlFor="#movieTitle">Title *</label>
-                        <input id="#movieTitle" className={this.state.validate.titleValidate ? "" : "error"} type="text" name="title" value={this.state.movie.title} onChange={this.handleChange} />
+                        <input id="#movieTitle" type="text" name="title" value={this.state.movie.title} onChange={this.handleChange} />
+                        <span className="error">{this.state.validate.title.msg}</span>
                     </p>
                     <p className="form-item">
                         <label htmlFor="#movieYear">Year *</label>

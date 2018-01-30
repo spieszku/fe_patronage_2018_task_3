@@ -1,7 +1,8 @@
 export default class MoviesStorage {
     constructor () {
+        var moviesData;
         if(!Array.isArray(JSON.parse(localStorage.getItem("movie"))) || localStorage.getItem("movie") === null ) {
-            var moviesData = [
+            moviesData = [
                 {
                     "id": 1,
                     "title": "The Shawshank Redemption",
@@ -61,7 +62,7 @@ export default class MoviesStorage {
             ];
         }
         else {
-            var moviesData = JSON.parse(localStorage.getItem("movie"));
+            moviesData = JSON.parse(localStorage.getItem("movie"));
             console.log("Movies loaded from storage");
         }
         localStorage.setItem("movie", JSON.stringify(moviesData));
@@ -77,17 +78,13 @@ export default class MoviesStorage {
             return this.moviesData[movieIndex];
         }
     }
-    set() {
-        if(arguments.length === 1 && typeof arguments === "object") {
-            // add new movie
-            let data = arguments[0];
+    set(data, id) {
+        if(typeof data === "object") {
             // add new movie to moviesData array
             this.moviesData.push(data);
+            console.log("Dodaję nowy")
         }
-        else if (arguments.length === 2 && typeof arguments[0] === "number" && typeof arguments[1] === "object") {
-            let id = arguments[0];
-            let data = arguments[1];
-
+        else if (typeof data === "object" && typeof id === "number" ) {
             // update existing movie
             let movieIndex = this.findIndexOfMovie(id);
             this.moviesData[movieIndex] = data;

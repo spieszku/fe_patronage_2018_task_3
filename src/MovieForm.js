@@ -124,7 +124,7 @@ export default class MovieForm extends React.Component {
                         <label htmlFor="#movieSummary">Summary</label>
                         <textarea id="#movieSummary" name="summary" rows="5" value={this.state.movie.summary} onChange={this.handleChange}></textarea>
                     </p>
-                    <p class="form-submit">
+                    <p className="form-submit">
                     <input disabled={!this.state.validate.formValidate} type="button" className="btn" value="Add" onClick={this.handleSubmit} />
                </p>
                 </form>

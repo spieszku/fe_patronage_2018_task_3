@@ -13,6 +13,7 @@ export default class MovieForm extends React.Component {
                 seen: 'F'
             },
             validate: {
+                genre: { valid: false, msg: ''},
                 year: { valid: false, msg: ''},
                 genreValidate: false,
                 titleValidate: false,
@@ -75,30 +76,33 @@ export default class MovieForm extends React.Component {
         }
         else if (value.length === 0) {
             valid = false;
-            msg = '';
+            msg = 'Year is required';
         }
         else {
             valid = false;
             msg = 'Year have to be 4 digit number!'
         }
         this.setState(prevState => ({validate: {
-            ...prevState.validate, year:{ valid:valid, msg: msg }
+            ...prevState.validate, year:{ valid: valid, msg: msg }
         }}));
     }
     validateGenre (value) {
         var valid;
+        var msg;
         if(value.length > 0) {
             valid = true;
+            msg ='';
         }
         else {
             valid = false;
+            msg = 'Genre is required'
         }
         this.setState(prevState => ({validate: {
-            ...prevState.validate, genreValidate: valid
+            ...prevState.validate, genre: { valid: valid, msg: msg }
         }}));
     }
     validateForm () {
-        if(this.state.validate.year.valid && this.state.validate.titleValidate && this.state.validate.genreValidate) {
+        if(this.state.validate.year.valid && this.state.validate.titleValidate && this.state.validate.genre.valid) {
             this.setState(prevState => ({validate: {
                 ...prevState.validate,formValidate: true
             }}));
@@ -126,6 +130,7 @@ export default class MovieForm extends React.Component {
                     <p className="form-item">
                         <label htmlFor="#movieGenre">Genre *</label>
                         <input id="#movieGenre" type="text" name="genre" value={this.state.movie.genre} onChange={this.handleChange} />
+                        <span className="error">{this.state.validate.genre.msg}</span>
                     </p>
                     <p className="form-item">
                         <label htmlFor="#movieSummary">Summary</label>

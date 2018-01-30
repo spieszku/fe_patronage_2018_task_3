@@ -96,3 +96,6 @@
     text-align: right;
     font-weight: bold;
 }
+.error {
+    color: red;
+}

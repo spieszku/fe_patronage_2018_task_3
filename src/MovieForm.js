@@ -13,9 +13,9 @@ export default class MovieForm extends React.Component {
                 seen: 'F'
             },
             validate: {
+                year: { valid: false, msg: ''},
                 genreValidate: false,
                 titleValidate: false,
-                yearValidate: false,
                 formValidate: false
             }
         };
@@ -27,7 +27,6 @@ export default class MovieForm extends React.Component {
     handleChange = event =>  {
         const target = event.target;
         const name = target.name;
-        //const timedVlaue;
         if(name === 'title') {
             this.validateTitle(target.value.trim());
         }
@@ -70,14 +69,20 @@ export default class MovieForm extends React.Component {
     }
     validateDate (value) {
         var valid;
+        var msg;
         if(value > 999 && value < 10000) {
             valid = true;
         }
+        else if (value.length === 0) {
+            valid = false;
+            msg = '';
+        }
         else {
             valid = false;
+            msg = 'Year have to be 4 digit number!'
         }
         this.setState(prevState => ({validate: {
-            ...prevState.validate, yearValidate: valid
+            ...prevState.validate, year:{ valid:valid, msg: msg }
         }}));
     }
     validateGenre (value) {
@@ -93,7 +98,7 @@ export default class MovieForm extends React.Component {
         }}));
     }
     validateForm () {
-        if(this.state.validate.yearValidate && this.state.validate.titleValidate && this.state.validate.genreValidate) {
+        if(this.state.validate.year.valid && this.state.validate.titleValidate && this.state.validate.genreValidate) {
             this.setState(prevState => ({validate: {
                 ...prevState.validate,formValidate: true
             }}));
@@ -111,11 +116,12 @@ export default class MovieForm extends React.Component {
                 <form id="addMovieForm">
                     <p className="form-item">
                         <label htmlFor="#movieTitle">Title *</label>
-                        <input id="#movieTitle" type="text" name="title" value={this.state.movie.title} onChange={this.handleChange} />
+                        <input id="#movieTitle" className={this.state.validate.titleValidate ? "" : "error"} type="text" name="title" value={this.state.movie.title} onChange={this.handleChange} />
                     </p>
                     <p className="form-item">
                         <label htmlFor="#movieYear">Year *</label>
                         <input id="#movieYear" type="number" name="year" value={this.state.movie.year} onChange={this.handleChange} />
+                        <span className="error">{this.state.validate.year.msg}</span>
                     </p>
                     <p className="form-item">
                         <label htmlFor="#movieGenre">Genre *</label>

@@ -79,7 +79,7 @@ export default class MoviesStorage {
         }
     }
     set(data, id) {
-        if(typeof data === "object") {
+        if(typeof data === "object" && id === undefined) {
             // add new movie to moviesData array
             this.moviesData.push(data);
         }

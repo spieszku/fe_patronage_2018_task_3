@@ -53,8 +53,7 @@ export default class MovieForm extends React.Component {
         this.setState(this.baseState);
     }
     validateTitle (value) {
-        var valid;
-        var msg;
+        var valid, msg;
         if(value) {
             if(this.props.titleHandler(value) === undefined) {
                 valid = true;
@@ -69,12 +68,11 @@ export default class MovieForm extends React.Component {
             msg = 'Title is required';
         }
         this.setState(prevState => ({validate: {
-            ...prevState.validate, title: { valid: valid, msg: msg}
+            ...prevState.validate, title: { valid, msg}
         }}));
     }
     validateDate (value) {
-        var valid;
-        var msg;
+        var valid, msg;
         if(value > 999 && value < 10000) {
             valid = true;
         }
@@ -87,12 +85,11 @@ export default class MovieForm extends React.Component {
             msg = 'Year have to be 4 digit number!'
         }
         this.setState(prevState => ({validate: {
-            ...prevState.validate, year:{ valid: valid, msg: msg }
+            ...prevState.validate, year:{ valid, msg }
         }}));
     }
     validateGenre (value) {
-        var valid;
-        var msg;
+        var valid, msg;
         if(value.length > 0) {
             valid = true;
             msg ='';
@@ -102,7 +99,7 @@ export default class MovieForm extends React.Component {
             msg = 'Genre is required'
         }
         this.setState(prevState => ({validate: {
-            ...prevState.validate, genre: { valid: valid, msg: msg }
+            ...prevState.validate, genre: { valid, msg }
         }}));
     }
     validateForm () {
